@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  tomcat:
+    image: docker.arvancloud.ir/tomcat:8.0
+    deploy:
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
+      update_config:
+        parallelism: 2
+        order: start-first
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+    ports:
+      - "8080:8080"
