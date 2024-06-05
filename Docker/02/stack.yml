@@ -9,8 +9,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+        max_replicas_per_node: 3
       update_config:
         parallelism: 2
+        delay: 5s
         order: start-first
       resources:
         limits:
